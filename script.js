@@ -222,7 +222,7 @@ document.querySelector(".range").getElementsByTagName("input")[0].addEventListen
          if (songs.length > 0) {
              playMusic(songs[0]);
          }
-    });
+    }); 
 });
 
 
