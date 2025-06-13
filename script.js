@@ -1,7 +1,6 @@
 console.log("lets write java script") 
 let currentsong = new Audio();
-let songs;
-let currentfolder;
+
 function formatSecondsToMinutes(seconds) {
     if(isNaN(seconds) || seconds<0){
         return "invalid input";
