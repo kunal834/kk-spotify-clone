@@ -54,6 +54,24 @@ const playMusic = (track ,pause=false) =>{
 
 } 
   
+
+async function displayAlbums(){
+    let a = await fetch(`http://127.0.0.1:3000/songs/`)
+    let response = await a.text();
+    let div = document.createElement('div')   
+    div.innerHTML = response;
+      let anchors = div.getElementsByTagName("a")
+      Array.from(anchors).forEach(e=>{
+          if(e.href.includes("/songs")){
+            console.log(e.href.split("/").slice(-2)[0])   // getting different folders inside song folder
+        //[0] slice(-2) mai 2 array with 2 element de rha hai pehle mai name dusre mai '' so [0] ensuring a name 
+
+        
+        }
+      })
+
+
+}
  async function main(){
 
 
@@ -61,7 +79,10 @@ const playMusic = (track ,pause=false) =>{
 // get the lists of all songs 
    await getsongs("/songs/ncs")
 console.log(songs)
-playMusic(songs[0])
+playMusic(songs[0],true)
+// display all the albums on the page 
+displayAlbums()
+
 // show all the songs in the playlist
 let songul = document.querySelector(".songslist").getElementsByTagName("ul")[0] 
 songul.innerHTML =""
@@ -169,13 +190,41 @@ document.querySelector(".range").getElementsByTagName("input")[0].addEventListen
 })
 
 // load the playlist when card was card clicked 
- Array.from(document.getElementsByClassName("card")).forEach(e=>{   //for each work on collection so arrayfrom converting into aray 
-     console.log(e)
-     e.addEventListener("click",async item=>{
-         console.log(item, item.currentTarget.dataset)
-         songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`)      
-     })
- })
+ Array.from(document.getElementsByClassName("card")).forEach(e => {
+    e.addEventListener("click", async item => {
+        songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`);
+
+        // Update the playlist UI
+        let songul = document.querySelector(".songslist").getElementsByTagName("ul")[0];
+        songul.innerHTML = "";
+        for (const song of songs) {
+            songul.innerHTML += `<li> 
+                <img class="invert" src="quaver.png" alt="">
+                <div class="info">
+                    <div>${song}</div>
+                    <div>kunal</div>
+                </div>
+                <div class="playnow">
+                    <span>Play Now</span>
+                    <img class="invert" src="playsong.png" alt="">
+                </div>
+            </li>`;
+        }
+
+        // Attach event listeners to new song list
+        Array.from(songul.getElementsByTagName("li")).forEach(li => {
+            li.addEventListener("click", element => {
+                playMusic(li.querySelector(".info").firstElementChild.innerHTML.trim());
+            });
+        });
+
+        // Play the first song in the new folder (optional)
+         if (songs.length > 0) {
+             playMusic(songs[0]);
+         }
+    });
+});
+
 
  }
 
