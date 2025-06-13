@@ -1,7 +1,7 @@
 console.log("lets write java script") 
 let currentsong = new Audio();
 let songs;
-let currentfolder;
+let currfolder;
 function formatSecondsToMinutes(seconds) {
     if(isNaN(seconds) || seconds<0){
         return "invalid input";
@@ -19,21 +19,23 @@ function formatSecondsToMinutes(seconds) {
 // console.log(formatSecondsToMinutes(12));   // Output: "00:12"
 // console.log(formatSecondsToMinutes(125));  // Output: "02:05"
 
-async function getsongs(){
-    let a = await fetch("http://127.0.0.1:3000/songs/")
+async function getsongs(folder){
+    currfolder = folder ;
+    let a = await fetch(`http://127.0.0.1:3000/${folder}/`)
     let response = await a.text();
     let div = document.createElement('div')   
     div.innerHTML = response;
     let as = div.getElementsByTagName('a')
-    let songs = []
+     songs = []
     for (let i = 0; i < as.length; i++) {
         const element = as[i];
         if(element.href.endsWith(".mp3")){
-            songs.push(element.href.split("/songs/")[1])
+            songs.push(element.href.split(`/${folder}/`)[1])
         }
         
     }
     return songs
+  
    
   
 }
@@ -41,7 +43,7 @@ async function getsongs(){
 
 const playMusic = (track ,pause=false) =>{
    // let adio = new Audio("/songs/" + track)   // it will find a music in songs folder 
-   currentsong.src =  "/songs/" + track ;    
+   currentsong.src =  `${currfolder}/` + track ;    
     currentsong.play()
     if(!pause){
         currentsong.play()
@@ -57,11 +59,12 @@ const playMusic = (track ,pause=false) =>{
 
  
 // get the lists of all songs 
-  songs = await getsongs("/songs/")
+   await getsongs("/songs/ncs")
 console.log(songs)
 playMusic(songs[0])
 // show all the songs in the playlist
 let songul = document.querySelector(".songslist").getElementsByTagName("ul")[0] 
+songul.innerHTML =""
 for (const song of songs    ) {
     songul.innerHTML = songul.innerHTML + `<li> 
                                 <img class="invert" src="quaver.png" alt="">
@@ -165,8 +168,17 @@ document.querySelector(".range").getElementsByTagName("input")[0].addEventListen
     currentsong.volume = parseInt(e.target.value)/100
 })
 
+// load the playlist when card was card clicked 
+ Array.from(document.getElementsByClassName("card")).forEach(e=>{   //for each work on collection so arrayfrom converting into aray 
+     console.log(e)
+     e.addEventListener("click",async item=>{
+         console.log(item, item.currentTarget.dataset)
+         songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`)      
+     })
+ })
 
-}
+ }
+
 
 
 main()  
