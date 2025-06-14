@@ -174,8 +174,8 @@ async function main() {
             play.src = "pause-button.png"
         }
         else {
-            currentsong.pause()
-            play.src = "play.png"
+             currentsong.pause()
+            play.src = "play.png"   
         }
     })
 
@@ -248,41 +248,7 @@ async function main() {
         currentsong.volume = parseInt(e.target.value) / 100
     })
 
-    // load the playlist when card was card clicked 
-    // Array.from(document.getElementsByClassName("card")).forEach(e => {
-    //     e.addEventListener("click", async item => {
-    //         songs = await getsongs(`songs/${item.currentTarget.dataset.folder}`);
-
-    //         // Update the playlist UI
-    //         let songul = document.querySelector(".songslist").getElementsByTagName("ul")[0];
-    //         songul.innerHTML = "";
-    //         for (const song of songs) {
-    //             songul.innerHTML += `<li> 
-    //             <img class="invert" src="quaver.png" alt="">
-    //             <div class="info">
-    //                 <div>${song}</div>
-    //                 <div>kunal</div>
-    //             </div>
-    //             <div class="playnow">
-    //                 <span>Play Now</span>
-    //                 <img class="invert" src="playsong.png" alt="">
-    //             </div>
-    //         </li>`;
-    //         }
-
-    //         // Attach event listeners to new song list
-    //         Array.from(songul.getElementsByTagName("li")).forEach(li => {
-    //             li.addEventListener("click", element => {
-    //                 playMusic(li.querySelector(".info").firstElementChild.innerHTML.trim());
-    //             });
-    //         });
-
-    //         // Play the first song in the new folder (optional)
-    //         if (songs.length > 0) {
-    //             playMusic(songs[0]);
-    //         }
-    //     });
-    // });
+   
 
 
     // add event listener to mute the track
@@ -298,6 +264,7 @@ async function main() {
             e.target.src = "volume-up.png"
             currentsong.volume = 0.10;
         }
+    
    })
 
 
