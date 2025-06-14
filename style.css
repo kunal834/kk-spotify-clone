@@ -333,6 +333,9 @@ body {
     margin-left: 15px;
     cursor: pointer;
 }
+.range input {
+    cursor: pointer 
+}
 
 
 @media (max-width: 1200px) {
