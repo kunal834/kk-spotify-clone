@@ -79,7 +79,7 @@ async function displayAlbums() {
             console.log(response)
             cardcontainer.innerHTML = cardcontainer.innerHTML + `  <div 
             data-folder="${folder}" class="card ">
-            
+
                         <div class="play invert">
                             <img src="play-button.png" alt="">
                         </div>
@@ -122,9 +122,9 @@ async function displayAlbums() {
             });
 
             // Play the first song in the new folder (optional)
-            if (songs.length > 0) {
-                playMusic(songs[0]);
-            }
+            //if (songs.length > 0) {
+            //    playMusic(songs[0]);
+            //}
         });
     });
 
