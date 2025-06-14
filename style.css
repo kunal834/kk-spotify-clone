@@ -229,7 +229,7 @@ body {
     position: fixed;
     bottom: 30px;
     background-color: rgb(56, 54, 54);
-    border-radius: 30px;
+   border-radius: 15px; 
     width: 70vw;
     padding: 12px;
     min-height: 40px;
