@@ -1,5 +1,5 @@
 
-:root{
+:root{  /* root is an defining ariable use by var(--a)*/
     --a:0;
 }
 * {
@@ -128,7 +128,7 @@ body {
 
 .nav img {
     height: 15px;
-}
+}   
 
 .spotifyplaylists {
     padding: 16px;
@@ -159,7 +159,7 @@ body {
 .card:hover{
     background-color: #575454;
     cursor: pointer;
-    --a:1;
+    --a:1;  
     
 }
 
@@ -204,7 +204,7 @@ body {
 .signupbtn:hover {
     font-size: 17px;
     color: rgb(255, 255, 255);
-}
+}       
 
 .loginbtn {
     background-color: white;
@@ -379,7 +379,7 @@ body {
     .seekbar {
         width: 84vw;
         font-size: 10px;
-        ;
+     
     }
 
     .hamburgur {

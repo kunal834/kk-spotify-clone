@@ -24,10 +24,12 @@ async function getsongs(folder) {
     currfolder = folder;
     let a = await fetch(`http://127.0.0.1:3000/${folder}/`)
     let response = await a.text();
+  console.log(response)
     let div = document.createElement('div')
     div.innerHTML = response;
-    let as = div.getElementsByTagName('a')
+    let as = div.getElementsByTagName('a')  // in response we getting songs wrap in a tag 
     songs = []
+  
     for (let i = 0; i < as.length; i++) {
         const element = as[i];
         if (element.href.endsWith(".mp3")) {
@@ -50,30 +52,32 @@ const playMusic = (track, pause = false) => {
         currentsong.play()
         play.src = "pause-button.png"
     }
-    document.querySelector(".songinfo").innerHTML = decodeURI(track)
+    document.querySelector(".songinfo").innerHTML = decodeURI(track)  // not get %20
     document.querySelector(".songtime").innerHTML = "00:00/00:00"
 
 }
 
-
+// yhis function will give us the folder of song
 async function displayAlbums() {
     let a = await fetch(`http://127.0.0.1:3000/songs/`)
     let response = await a.text();
+    console.log(response)
+    
     let div = document.createElement('div')
-    div.innerHTML = response;
+    div.innerHTML = response
     let anchors = div.getElementsByTagName("a")
     let cardcontainer = document.querySelector(".cardcontainer")
-    let array = Array.from(anchors)
+    let array = Array.from(anchors)   // giving arrays of folder 
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
 
 
         if (e.href.includes("/songs")) {
             let folder = e.href.split("/").slice(-2)[0]  // getting different folders inside song folder
-            console.log(folder)
-            //[0] slice(-2) mai 2 array with 2 element de rha hai pehle mai name dusre mai '' so [0] ensuring a name 
+             console.log(folder)
+            //e.href = full link of folder [0] slice(-2) mai 2 array with 2 element de rha hai pehle mai name dusre mai '' so [0] ensuring a name 
 
-            // now we get the metadats of the folder
+            // now we get the metadats(means fetching info.json) of the folder
             let a = await fetch(`http://127.0.0.1:3000/songs/${folder}/info.json`)
             let response = await a.json();
             console.log(response)
@@ -121,7 +125,7 @@ async function displayAlbums() {
                 });
             });
 
-            // Play the first song in the new folder (optional)
+            // Play the first song in the new folder 
             //if (songs.length > 0) {
             //    playMusic(songs[0]);
             //}
@@ -132,9 +136,6 @@ async function displayAlbums() {
 
 }
 async function main() {
-
-
-
     // get the lists of all songs 
     await getsongs("/songs/ncs")
     console.log(songs)
@@ -167,9 +168,9 @@ async function main() {
 
         })
     })
-    // attach an event listener to play next and previous 
+    // attach an event listener to play and pause 
     play.addEventListener("click", () => {   // play referd to id 
-        if (currentsong.paused) {
+        if (currentsong.paused) {  // .paused is  HTMLMediaElement API
             currentsong.play()
             play.src = "pause-button.png"
         }
@@ -205,9 +206,9 @@ async function main() {
     document.querySelector(".seekbar").addEventListener("click", e => {
         let circlemove = (e.offsetX / e.target.getBoundingClientRect().width) * 100   //gbcr function use to compare the viewwidth with width
         document.querySelector(".circle").style.left = circlemove + "%"
-
+  // e.offsetX X-position (in pixels) of the mouse click relative to the seekbar's left edge.
         currentsong.currentTime = ((currentsong.duration) * circlemove) / 100
-    })
+    })  
 
 
     // add event listener for hamburgur
@@ -263,7 +264,7 @@ async function main() {
         else{
             e.target.src = "volume-up.png"
             currentsong.volume = 0.10;
-        }
+        } 
     
    })
 
@@ -273,4 +274,4 @@ async function main() {
 
 
 
-main()  
+main()      
