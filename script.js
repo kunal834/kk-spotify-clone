@@ -1,5 +1,5 @@
 console.log("lets write java script")
-//i have not remove conspole.log() to fix bug if come
+//i have not remove console.log() to fix bug if come
 let currentsong = new Audio();
 let songs;
 let currentfolder;
@@ -122,7 +122,7 @@ async function displayAlbums() {
             Array.from(songul.getElementsByTagName("li")).forEach(li => {
                 li.addEventListener("click", element => {
                     playMusic(li.querySelector(".info").firstElementChild.innerHTML.trim());
-                });
+                }); 
             });
 
             // Play the first song in the new folder 
