@@ -1,4 +1,4 @@
-console.log("Initializing Spotify Audio Engine...");
+console.log("CRACK Audio System: Operational.");
 
 // Global Audio Engine and Session States
 let currentsong = new Audio();
@@ -537,12 +537,12 @@ function addRandomSongToPlaylist(playlistId) {
 
 // User Session Auth Helpers
 function performLogin(username) {
-    localStorage.setItem("spotifyUser", username);
+    localStorage.setItem("crackUser", username);
     updateUserSession();
 }
 
 function updateUserSession() {
-    let user = localStorage.getItem("spotifyUser");
+    let user = localStorage.getItem("crackUser");
     let signupBtn = document.getElementById("signupBtn");
     let loginBtn = document.getElementById("loginBtn");
     let profileDropdown = document.getElementById("profileDropdown");
@@ -820,7 +820,7 @@ async function main() {
     
     document.getElementById("logoutBtn").addEventListener("click", (e) => {
         e.preventDefault();
-        localStorage.removeItem("spotifyUser");
+        localStorage.removeItem("crackUser");
         updateUserSession();
     });
 }
